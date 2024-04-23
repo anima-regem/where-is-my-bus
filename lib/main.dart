@@ -1,75 +1,25 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:where_is_my_bus/pages/maps_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  LatLng _geoPoint = LatLng(9.77, 3.44);
-
-  @override
-  void initState() {
-    super.initState();
-    // Start the timer when the state is initialized
-    Timer.periodic(const Duration(seconds: 5), (Timer timer) {
-      // Update the location slightly after 5 seconds
-      setState(() {
-        _geoPoint =
-            LatLng(_geoPoint.latitude + 0.001, _geoPoint.longitude + 0.001);
-      });
-    });
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: Scaffold(
-        body: FlutterMap(
-          options: MapOptions(
-            initialCenter: _geoPoint,
-            initialZoom: 15.0,
-            interactionOptions: InteractionOptions(flags: InteractiveFlag.all),
-          ),
-          children: [
-            openStreetMapTileLayer,
-            MarkerLayer(
-              markers: [
-                Marker(
-                  point: _geoPoint,
-                  child: Builder(
-                    builder: (BuildContext context) {
-                      return Icon(
-                        Icons.circle,
-                        color: Colors.red,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+        title: 'Where is my bus?',
+        theme:
+            ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.red)),
+        home: MapsPage());
   }
 }
-
-TileLayer get openStreetMapTileLayer => TileLayer(
-      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-      userAgentPackageName: 'dev.flemap.flutter_map.example',
-    );

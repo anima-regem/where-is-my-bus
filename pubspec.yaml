@@ -38,6 +38,8 @@ dependencies:
   flutter_osm_plugin: ^0.70.4
   flutter_map: ^6.1.0
   latlong2: ^0.9.1
+  cloud_firestore: ^4.17.0
+  firebase_core: ^2.30.0
 
 dev_dependencies:
   flutter_test:
