@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:where_is_my_bus/pages/bus_page.dart';
+import 'package:where_is_my_bus/pages/home_page.dart';
+import 'package:where_is_my_bus/pages/landing_page.dart';
 import 'package:where_is_my_bus/pages/maps_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:where_is_my_bus/pages/timeline_page.dart';
@@ -22,7 +25,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme:
           ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),
-      home: MapsPage(),
+      routes: {
+        '/': (context) => const LandingPage(),
+        '/homepage': (context) => const HomePage(),
+        '/maps': (context) => const MapsPage(),
+        '/bus-page': (context) => const BusPage(),
+      },
+      initialRoute: '/',
     );
   }
 }

@@ -253,14 +253,28 @@ class _MapsPageState extends State<MapsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "Where is my college bus?",
-            style: GoogleFonts.poppins().copyWith(
-              color: Colors.black,
-              fontWeight: FontWeight.w800,
-              fontSize: 18,
+          backgroundColor: const Color(0xffffec99),
+          title: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "where is my college bus?",
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xff000000),
+                  textStyle: const TextStyle(letterSpacing: 1),
+                ),
+              ),
             ),
           ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/maps');
+                },
+                icon: Icon(Icons.refresh_rounded))
+          ],
         ),
         body: SlidingUpPanel(
           panel: Builder(builder: (context) {
